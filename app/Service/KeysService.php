@@ -8,5 +8,11 @@ use DB;
 		{
 			return KeysModel::get(['id','key_name']);
 		}
+		public function insert($request)
+	    {
+	        $keys=new KeysModel();
+	        $keys->key_name = $request->key_name;
+	        $keys->save();
+	    }
 	}
 ?>

@@ -19,7 +19,7 @@ class LanguageKeysApiController extends Controller
      */
     public function index()
     {
-        $data = $this->LanguageKeysService->get_language_keys_according_to_language();
+        $data = $this->LanguageKeysService->get_language_keys_according_to_language1();
         return response()->json($data);
     }
 

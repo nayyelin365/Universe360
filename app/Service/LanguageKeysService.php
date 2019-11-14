@@ -31,5 +31,27 @@ use DB;
 			}
 			return $data;
 		}
+		public function get_language_keys_according_to_language1()
+		{
+			/*$data = DB::table('language_keys')
+			        ->join('languages', 'language_keys.language_id', '=', 'languages.id')
+			        ->join('keys', 'language_keys.key_id', '=', 'keys.id')
+			        ->select( 'languages.language_name as language','keys.key_name as key','language_keys.key_description as value', 'language_keys.language_audio as audio')
+			        ->get();
+			return $data;*/
+			$languages=DB::table('languages')
+					->select( 'languages.id as language_id','languages.language_name as language_name')
+			        ->get();
+			foreach ($languages as $language) 
+			{
+				$data[$language->language_name] = DB::table('language_keys')
+			        ->join('languages', 'language_keys.language_id', '=', 'languages.id')
+			        ->join('keys', 'language_keys.key_id', '=', 'keys.id')
+			        ->where('language_keys.language_id', '=',$language->language_id)
+			        ->select('keys.key_name as key','language_keys.key_description as value', 'language_keys.language_audio as audio')
+			        ->get();
+			}
+			return $data;
+		}
 	}
 ?>
