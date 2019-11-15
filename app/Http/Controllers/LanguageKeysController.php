@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Service\LanguageKeysService;
+use App\Model\LanguageKeysModel;
 
 class LanguageKeysController extends Controller
 {
@@ -40,8 +41,14 @@ class LanguageKeysController extends Controller
      */
     public function store(Request $request)
     {
-        $this->LanguageKeysService->insert($request); 
-        return redirect('/');
+        $languageKeys = LanguageKeysModel::all();
+
+        foreach ($languageKeys as $languageKey) {
+            
+            $languageKey->update(["key_description" => request("key_description_".$languageKey->id)]);
+        }
+
+        return redirect()->back();
     }
 
     /**

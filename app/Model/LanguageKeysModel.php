@@ -9,6 +9,8 @@ class LanguageKeysModel extends Model
 {
     use SoftDeletes;
     protected $table = 'language_keys';
+    protected $guarded = [];
+
 	public function keys()
 	{
 		return $this->belongsTo('App\Model\KeysModel','key_id');

@@ -33,6 +33,7 @@
 	  	</div>
 	    <!--  choose translation -->
 	    <form class="col-12" action="{{url('description/update')}}" method="POST" enctype="multipart/form-data">
+	    	@csrf
 	     	<div class="form-group">
 	        	<div class="card">
 			  		<div class="card-header">
@@ -51,7 +52,7 @@
 		        						<ul>
 				        					@foreach($key_des->language_keys as $languageKey)
 					        					<li class="list-group-item ">
-					        			 			<textarea name="key_description" value="{{$languageKey->key_description}}"  class="col-8" style="height: 200px;">
+					        			 			<textarea name="key_description_{{$languageKey->id}}" value="{{$languageKey->key_description}}"  class="col-8" style="height: 200px;">
 					        			 				{{$languageKey->key_description}}
 					        			 			</textarea> 
 					        			 			<input class="float-center" type="file" name="Choose File"/>
