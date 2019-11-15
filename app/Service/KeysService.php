@@ -7,11 +7,18 @@ use App\Model\KeysModel;
 		{
 			return KeysModel::get(['id','key_name']);
 		}
+<<<<<<< HEAD
 		public function insert($request)
 	    {
 	        $keys=new KeysModel();
 	        $keys->key_name = $request->key_name;
 	        $keys->save();
 	    }
+=======
+		public function getKeyDesription(){
+			return KeysModel::with('language_keys')->get();
+
+		}	
+>>>>>>> nayyelin
 	}
 ?>
