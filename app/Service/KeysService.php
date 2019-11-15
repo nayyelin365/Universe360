@@ -8,5 +8,9 @@ use DB;
 		{
 			return KeysModel::get(['id','key_name']);
 		}
+		public function getKeyDesription(){
+			return KeysModel::with('language_keys')->get();
+
+		}	
 	}
 ?>

@@ -1,20 +1,17 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
+ 
 Route::get('/', function () {
-    return view('auth/login');
+    return view('addlanguage');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/lang', 'LanguagesController@index');
+
+//Ajax for public access
+Route::post('set-lang-public-access','LanguagesController@setPublicAccess');
+
+Route::post('unset-lang-public-access','LanguagesController@unsetPublicAccess');
+
+Route::post('description/update','LanguageKeysController@store');

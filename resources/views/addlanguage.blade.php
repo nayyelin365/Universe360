@@ -139,7 +139,7 @@
 		    li.className = 'list-group-item'; 
 		    li.setAttribute('id',candidate.value);
 		    li.appendChild(document.createTextNode(candidate.value));
-		    li.innerHTML += "<input type='text'/><span class='float-right'> <input type='file' value='Select' /></span>";
+		    li.innerHTML += "<div class='row'><div class='col col-8'><input class='form-control' type='text'/></div><div class='col col-2'><input type='file' value='Select' /></div></div>";
 
 				ul.appendChild(li); 
 		    

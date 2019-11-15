@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Service\LanguagesService;
+use App\Model\LanguagesModel;
+use App\Service\KeysService;
 
 class LanguagesController extends Controller
 {
     function __construct()
     {
         $this->LanguagesService = new LanguagesService();
+        $this->KeysService=new KeysService();
     }
     /**
      * Display a listing of the resource.
@@ -18,8 +21,9 @@ class LanguagesController extends Controller
      */
     public function index()
     {
-        $data = $this->LanguagesService->get_all();
-        return dd($data);
+        $data["language_get_all"] = $this->LanguagesService->get_all();
+        $data["language_key_des"]=$this->KeysService->getKeyDesription();
+        return view('addlanguageview')->with($data);
     }
 
     /**
@@ -86,5 +90,20 @@ class LanguagesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    //Ajax
+    public function setPublicAccess(Request $request)
+    {
+        $languagesModel = LanguagesModel::find($request->id);
+        $languagesModel->public_access = "Yes";
+        $languagesModel->save();
+
+        return response("ok");
+    }
+    public function unsetPublicAccess(Request $request){
+        $access=LanguagesModel::find($request->id);
+        $access->public_access="No";
+        $access->save();
     }
 }

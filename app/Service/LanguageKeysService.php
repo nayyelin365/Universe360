@@ -15,6 +15,13 @@ use DB;
 			return $data;*/
 			return LanguageKeysModel::with('keys','languages')->get();
 		}
+		public function insert($request)
+		{
+			$languageDes=new LanguageKeysModel();
+			$languageDes->key_description = $request->key_description; 
+			$languageDes->save();
+		}
+
 		public function get_language_keys_according_to_language()
 		{
 			$languages=DB::table('languages')

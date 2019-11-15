@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Service\LanguagesService;
+use App\Service\LanguageKeysService;
 
 class LanguageKeysController extends Controller
 {
@@ -40,7 +40,8 @@ class LanguageKeysController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->LanguageKeysService->insert($request); 
+        return redirect('/');
     }
 
     /**
@@ -86,5 +87,13 @@ class LanguageKeysController extends Controller
     public function destroy($id)
     {
         //
+    }
+     public function descriptionupdate(Request $request)
+    {
+        $languagesModel = LanguagesModel::find($request->id);
+        $languagesModel->public_access = "Yes";
+        $languagesModel->save();
+
+        return response("ok");
     }
 }
