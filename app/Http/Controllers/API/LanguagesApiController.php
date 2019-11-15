@@ -5,12 +5,20 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Service\LanguagesService;
+use App\Service\LanguageKeysService;
+use App\Http\Resources\LanguagesResource;
+use App\Http\Resources\TestResource;
 
 class LanguagesApiController extends Controller
 {
     function __construct()
     {
+        $this->LanguageKeysService = new LanguageKeysService();
         $this->LanguagesService = new LanguagesService();
+    }
+    public function test()
+    {
+        return TestResource::collection($this->LanguageKeysService->get_all());
     }
     /**
      * Display a listing of the resource.
@@ -19,8 +27,11 @@ class LanguagesApiController extends Controller
      */
     public function index()
     {
-        $data = $this->LanguagesService->get_all();
-        return response()->json($data);
+        $data = $this->LanguageKeysService->get_all();
+        return TestResource::collection($data);
+        
+        /*$data = $this->LanguagesService->get_all();
+        return LanguagesResource::collection($data);*/
     }
 
     /**

@@ -1,13 +1,19 @@
 <?php 
 namespace App\Service;
 use App\Model\LanguagesModel;
-use DB;
 
 	class LanguagesService 
 	{
 	    public function get_all()
 		{
-			return LanguagesModel::get(['id','language_name','public_access']);
+			return LanguagesModel::all();
 		}
+		public function insert($request)
+	    {
+	        $languages=new LanguagesModel();
+	        $languages->language_name = $request->language_name;
+	        $languages->public_access = 'No';
+	        $languages->save();
+	    }
 	}
 ?>
