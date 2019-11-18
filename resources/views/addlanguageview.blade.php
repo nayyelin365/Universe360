@@ -18,12 +18,24 @@
 		    		<div class="col-12">
 	        			<ul class="list-group" id="add-language-list">
 	           				@foreach($language_get_all as $lang)
-	           					<?php 
-	           						$v=$lang->language_name;
-	           					?>
+	           					 
 			    	 			<li class="list-group-item">
 			    	 				{{$lang->language_name}} 
-			    	 				<input class="float-right" type="checkbox"  value="{{$lang->id}}" name="lang">
+
+			    	 				<?php
+			    	 					$puclic_check=$lang->public_access;
+			    	 					if($puclic_check=='No'){ 
+
+			    	 				?>
+			    	 						<input class="float-right" type="checkbox"  value="{{$lang->id}}" name="lang" > 
+			    	 				<?php
+			    	 					}else{
+
+			    	 				?>
+			    	 						<input class="float-right" type="checkbox"  value="{{$lang->id}}" name="lang" checked> 
+			    	 				<?php
+			    	 					}
+			    	 				?> 
 			    	 			</li> 
 		    				@endforeach
 	        			</ul>
@@ -97,7 +109,7 @@
 		      		</div>
 		      		<div class="modal-footer">
 		        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-		        		<button type="button" class="btn btn-primary" id="btnAdd" data-dismiss="modal">Add</button>
+		        		<button type="button" class="btn btn-primary" id="btnAddLanguage" data-dismiss="modal">Add</button>
 		      		</div>
 		    	</div>
 		  	</div>
@@ -123,7 +135,7 @@
 				    </div>
 				    <div class="modal-footer">
 				    	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				        <button type="button" class="btn btn-primary" id="btnAddkey" data-dismiss="modal">Add</button>
+				        <button type="button" class="btn btn-primary" id="btnAddkey" data-dismiss="modal">Add Keys</button>
 				    </div>
 				</div>
 			</div>
@@ -131,10 +143,14 @@
 	</div> 
 	<script type="text/javascript">	
 		/*add language script*/
-		var btnLanguageAdd = document.getElementById("btnAdd"); 
+		var btnLanguageAdd = document.getElementById("btnAddLanguage"); 
 		btnLanguageAdd.addEventListener("click", function() {
-			var ul = document.getElementById("add-language-list");
-		    var candidate = document.getElementById("choose_language");
+
+			
+		   var ul = document.getElementById("add-language-list");
+		    var candidate = document.getElementById("choose_language"); 
+
+		    setLanguage(candidate.value);
 		    var li = document.createElement("li");
 		    li.className = 'list-group-item'; 
 		    li.setAttribute('id',candidate.value);
@@ -148,12 +164,14 @@
 		btnKeyAdd.addEventListener("click", function() {
 		 var ul = document.getElementById("add-language-key");
 		    var candidate = document.getElementById("choose_language_key");
+			alert(candidate.value);
+		    setLanguageKey(candidate.value);
 
 		    var li = document.createElement("li");
 		    li.className = 'list-group-item'; 
 		    li.setAttribute('id',candidate.value);
 		    li.appendChild(document.createTextNode(candidate.value));
-		    li.innerHTML += "<div class='row'><div class='col col-8'><input class='form-control' type='text'/></div><div class='col col-2'><input type='file' value='Select' /></div></div>";
+		    li.innerHTML += "<textarea name='name' value='vv' style='height: 200px;''>					        		</textarea> <input class='float-center' type='file' name='Choose File'/>";
 
 			ul.appendChild(li); 
 		    
@@ -201,6 +219,28 @@
 
 	    		}
 	    	});
+	    }
+	    function setLanguage(id){
+	    	$.ajax({
+	    		url:"{!! url('language/store')!!}",
+	    		type:"POST",
+	    		data:{"language_name":id,"_token":"{{csrf_token()}}"},
+	    		success:function(data){
+	    			alert("insert successfully ");
+	    		}
+	    	})
+	    }
+	    function setLanguageKey(id){
+	    	$.ajax({
+	    		url: "{!! url('language_key/store/test') !!}",
+	    		type:"POST",
+	    		data: {"key_name": id,"_token":"{{csrf_token()}}"},
+	    		success:function(data){
+	    			alert("insert successfully");
+	    			moreinsertLanguageKey();
+	    		}
+
+	    	})
 	    }
 	</script>
 </body>
