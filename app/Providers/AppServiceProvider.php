@@ -1,10 +1,6 @@
 <?php
 
-namespace App\Providers;
-<<<<<<< HEAD
-=======
-
->>>>>>> nayyelin
+namespace App\Providers; 
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;

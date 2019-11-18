@@ -26,15 +26,6 @@ use DB;
 			        ->get();
 			return $data;
 		}
-
-		public function insert($request)
-	    {
-	        $language_keys=new LanguageKeysModel();
-	        $language_keys->language_id = $request->language_id;
-	       	$language_keys->key_id = $request->key_id;
-	       	$language_keys->key_description = $request->key_description;
-	       	$language_keys->language_audio = $request->language_audio;
-	        $language_keys->save();
-	    }
+ 
 	}
 ?>
