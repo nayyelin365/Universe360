@@ -16,7 +16,8 @@ class LanguageKeysResource extends JsonResource
     {
         return [
             "key" => $this->keys->key_name,
-            "key_des" => $this->key_description,
+            "value" => $this->key_description,
+            "audio" => $this->language_audio,
         ];
     }
 }

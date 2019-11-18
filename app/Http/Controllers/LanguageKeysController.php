@@ -42,10 +42,21 @@ class LanguageKeysController extends Controller
     public function store(Request $request)
     {
         $languageKeys = LanguageKeysModel::all();
-
         foreach ($languageKeys as $languageKey) {
+            $audio_id='audio_'.$languageKey->id;
+            if($request->hasFile($audio_id)){
+                $audioName ='key_value_of_'.$languageKey->keys->key_name.'_in_'. $languageKey->languages->language_name.'.'.$request->$audio_id->getClientOriginalExtension();
+                $request->$audio_id->move(public_path('audio'), $audioName);
+                $path='public/audio/'.$audioName;
+            }
+            else {
+                $path=$request->$audio_id;
+            }
             
-            $languageKey->update(["key_description" => request("key_description_".$languageKey->id)]);
+
+            $languageKeys->language_audio=$path;
+
+            $languageKey->update(["key_description" => request("key_description_".$languageKey->id),"language_audio" => $path]);
         }
 
         return redirect()->back();

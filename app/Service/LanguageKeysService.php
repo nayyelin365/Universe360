@@ -2,30 +2,16 @@
 namespace App\Service;
 use App\Model\LanguageKeysModel;
 use App\Model\LanguagesModel;
-use DB;
 
 	class LanguageKeysService 
 	{
 	    public function get_all()
 		{
-			return LanguageKeysModel::with('keys','languages')->get();
+			return LanguageKeysModel::with('keys','languages')->get()->where('languages.public_access','Yes');
 		}
-		public function insert($request)
+		public function get_key_value_and_audio_of_language($request)
 		{
-			$languageDes=new LanguageKeysModel();
-			$languageDes->key_description = $request->key_description; 
-			$languageDes->save();
+			return LanguageKeysModel::with('keys','languages')->get()->where('languages.language_name',$request->language_name)->where('languages.public_access','Yes');
 		}
-
-		public function get_language_keys_according_to_language()
-		{
-			$data = DB::table('language_keys')
-			        ->join('languages', 'language_keys.language_id', '=', 'languages.id')
-			        ->join('keys', 'language_keys.key_id', '=', 'keys.id')
-			        ->select( 'languages.language_name as language','keys.key_name as key','language_keys.key_description as value', 'language_keys.language_audio as audio')
-			        ->get();
-			return $data;
-		}
- 
 	}
 ?>

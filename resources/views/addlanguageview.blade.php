@@ -67,7 +67,8 @@
 					        			 			<textarea name="key_description_{{$languageKey->id}}" value="{{$languageKey->key_description}}"  class="col-8" style="height: 200px;">
 					        			 				{{$languageKey->key_description}}
 					        			 			</textarea> 
-					        			 			<input class="float-center" type="file" name="Choose File"/>
+					        			 			<input class="float-center" type="file" value="{{$languageKey->language_audio}}" name="audio_{{$languageKey->id}}"/>{{$languageKey->language_audio}}
+					        			 			<input class="float-center" type="hidden" value="{{$languageKey->language_audio}}" name="audio_{{$languageKey->id}}"/>
 					        		 			</li>
 				        					@endforeach
 		        						</ul>
@@ -155,7 +156,7 @@
 		    li.setAttribute('id',candidate.value);
 		    li.appendChild(document.createTextNode(candidate.value));
 		    li.innerHTML += "<span class='float-right'> <input type='checkbox' onclick='console.log(select.toString)' value='Select' /></span>";
-		      ul.appendChild(li);
+		    ul.appendChild(li);
 		})
 
 		/*add keys script*/
@@ -172,7 +173,7 @@
 		    li.appendChild(document.createTextNode(candidate.value));
 		    li.innerHTML += "<textarea name='name' value='vv' style='height: 200px;''>					        		</textarea> <input class='float-center' type='file' name='Choose File'/>";
 
-				ul.appendChild(li); 
+			ul.appendChild(li); 
 		    
 		})
 
@@ -202,7 +203,6 @@
 	    		success:function(data){
 
 	    			console.log(data);
-
 	    		}
 	    	});
 	    }

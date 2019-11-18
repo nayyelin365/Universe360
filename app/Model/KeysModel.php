@@ -9,10 +9,6 @@ class KeysModel extends Model
 {
 	use SoftDeletes;
     protected $table = 'keys';
-<<<<<<< HEAD
-    
-=======
->>>>>>> nayyelin
 	public function language_keys()
 	{
 		return $this->hasMany('App\Model\LanguageKeysModel','key_id');

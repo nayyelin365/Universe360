@@ -17,6 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('languages', 'API\LanguagesApiController@index');
-Route::get('test', 'API\LanguagesApiController@test');
+Route::post('language_key', 'API\LanguagesApiController@index');
+Route::post('languages', 'API\LanguagesApiController@languages');
 
