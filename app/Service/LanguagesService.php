@@ -6,7 +6,7 @@ use App\Model\LanguagesModel;
 	{
 	    public function get_all()
 		{
-			return LanguagesModel::all();
+			return LanguagesModel::all()->where('public_access','Yes');
 		}
 		public function insert($request)
 	    {
