@@ -44,7 +44,7 @@ class LanguagesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $this->LanguagesService->insert($request);
     }
 
     /**

@@ -41,6 +41,7 @@ class KeysController extends Controller
     public function store(Request $request)
     {
         $this->KeysService->insert($request);
+        return redirect()->back();
     }
 
     /**

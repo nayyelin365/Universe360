@@ -1,6 +1,7 @@
 <?php 
 namespace App\Service;
 use App\Model\KeysModel;
+use App\Model\LanguageKeysModel;
 use App\Model\LanguagesModel;
 	class KeysService 
 	{
@@ -10,10 +11,22 @@ use App\Model\LanguagesModel;
 		}
 		public function insert($request)
 	    {
-	    	
 	        $keys=new KeysModel();
 	        $keys->key_name = $request->key_name;
 	        $keys->save();
+	        $languages=LanguagesModel::all();
+	        $keys=KeysModel::all()->where('key_name',$request->key_name);
+	        $data=0;
+	        foreach ($keys as $key) {
+	        	$key_id=$key->id;
+	        }
+	        foreach ($languages as $language) {
+	        	$language_keys=new LanguageKeysModel();
+		        $language_keys->key_id = $key_id;
+		        $language_keys->language_id = $language->id;
+		        $language_keys->save();
+	        }
+	        
 	    }
 		public function getKeyDesription(){
 			return KeysModel::with('language_keys')->get();

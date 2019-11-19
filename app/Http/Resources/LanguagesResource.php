@@ -17,8 +17,6 @@ class LanguagesResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->language_name,
-
-            /*"key_info" => LanguageKeysResource::collection($this->language_keys),*/
         ];
     }
 }

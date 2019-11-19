@@ -15,6 +15,7 @@ class LanguageKeysResource extends JsonResource
     public function toArray($request)
     {
         return [
+            "language"=>$this->languages->language_name,
             "key" => $this->keys->key_name,
             "value" => $this->key_description,
             "audio" => $this->language_audio,
