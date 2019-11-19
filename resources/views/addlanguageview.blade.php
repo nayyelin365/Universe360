@@ -66,7 +66,8 @@
 					        					<li  class="list-group-item"> 
 					        			 			<textarea name="key_description_{{$languageKey->id}}" value="{{$languageKey->key_description}}"  class="col-12 text-left" style="height: 200px;">	{{$languageKey->key_description}}
 					        			 			</textarea> 
-					        			 			<input  type="file" value="{{$languageKey->language_audio}}" name="audio_{{$languageKey->id}}"/>{{$languageKey->language_audio}}
+					        			 			<input class="float-center" type="file" accept=".ogg" value="{{$languageKey->language_audio}}" name="audio_{{$languageKey->id}}"/>
+					        			 			{{substr($languageKey->language_audio, 13)}}
 					        			 			<input class="float-center" type="hidden" value="{{$languageKey->language_audio}}" name="audio_{{$languageKey->id}}"/>
 					        		 			</li>
 				        					@endforeach
@@ -165,13 +166,13 @@
 			alert(candidate.value);
 		    setLanguageKey(candidate.value);
 
-		    var li = document.createElement("li");
+		    /*var li = document.createElement("li");
 		    li.className = 'list-group-item'; 
 		    li.setAttribute('id',candidate.value);
 		    li.appendChild(document.createTextNode(candidate.value));
 		    li.innerHTML += "<textarea name='name' value='vv' style='height: 200px;''>					        		</textarea> <input class='float-center' type='file' name='Choose File'/>";
 
-			ul.appendChild(li); 
+			ul.appendChild(li); */
 		    
 		})
 
@@ -230,14 +231,12 @@
 	    }
 	    function setLanguageKey(id){
 	    	$.ajax({
-	    		url: "{!! url('language_key/store/test') !!}",
+	    		url: "{!! url('language_key/store') !!}",
 	    		type:"POST",
 	    		data: {"key_name": id,"_token":"{{csrf_token()}}"},
 	    		success:function(data){
 	    			alert("insert successfully");
-	    			moreinsertLanguageKey();
 	    		}
-
 	    	})
 	    }
 	</script>

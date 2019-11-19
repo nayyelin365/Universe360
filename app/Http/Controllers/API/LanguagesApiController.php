@@ -16,9 +16,9 @@ class LanguagesApiController extends Controller
         $this->LanguageKeysService = new LanguageKeysService();
         $this->LanguagesService = new LanguagesService();
     }
-    public function languages(Request $request)
+    public function languages()
     {
-        $data = $this->LanguagesService->get_all($request);
+        $data = $this->LanguagesService->get_languages_according_to_public_access();
         return LanguagesResource::collection($data);
     }
     /**
@@ -28,12 +28,12 @@ class LanguagesApiController extends Controller
      */
     public function index(Request $request)
     {   //get all languages
-        /*$data = $this->LanguageKeysService->get_all();
-        return LanguageKeysResource::collection($data);*/
+        $data = $this->LanguageKeysService->get_all();
+        return LanguageKeysResource::collection($data);
 
         //get each language
-        $data = $this->LanguageKeysService->get_key_value_and_audio_of_language($request);
-        return LanguageKeysResource::collection($data);
+        /*$data = $this->LanguageKeysService->get_key_value_and_audio_of_language($request);
+        return LanguageKeysResource::collection($data);*/
     }
 
     /**

@@ -14,4 +14,4 @@ Route::post('unset-lang-public-access','LanguagesController@unsetPublicAccess');
 
 Route::post('description/update','LanguageKeysController@store');
 Route::post('language/store','LanguagesController@store'); 
-Route::post('language_key/store/test','KeysController@store');
+Route::post('language_key/store','KeysController@store');

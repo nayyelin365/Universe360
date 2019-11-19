@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Service\LanguageKeysService;
 use App\Model\LanguageKeysModel;
+use App\Model\KeysModel;
+use App\Model\LanguagesModel;
 
 class LanguageKeysController extends Controller
 {
@@ -53,7 +55,6 @@ class LanguageKeysController extends Controller
                 $path=$request->$audio_id;
             }
             
-
             $languageKeys->language_audio=$path;
 
             $languageKey->update(["key_description" => request("key_description_".$languageKey->id),"language_audio" => $path]);
