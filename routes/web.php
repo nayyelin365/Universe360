@@ -1,13 +1,11 @@
 <?php
  
-Route::get('/', function () {
-    return view('addlanguageview');
-});
+Route::get('/', 'LanguagesController@index')->middleware('auth');
 
 Auth::routes();
+//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/lang', 'LanguagesController@index')->middleware('auth');
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/lang', 'LanguagesController@index');
 
 //Ajax for public access
 Route::post('set-lang-public-access','LanguagesController@setPublicAccess');

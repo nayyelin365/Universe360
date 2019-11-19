@@ -7,6 +7,7 @@
     </head>
 
     <body>
+    		
             @yield('content')
     </body>
     <!-- FOR JS -->

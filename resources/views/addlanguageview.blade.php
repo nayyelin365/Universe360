@@ -1,9 +1,9 @@
 @extends('layouts.main')
+@include('layouts.app')
 @section('content')
-<body style="background: #174F15;">  
-	<div class="container h-100" style="margin-top: 30px;background: #174F15;">
+ 	<div class="container h-100" style="margin-top: 30px;">
 		<!-- for choose language -->
-		<h1 style="color:#007bff;">Add New Language</h1>
+		
 		<div class="form-group">
 			<div class="card">
 				<div class="card-header">
@@ -61,11 +61,10 @@
 			    			@foreach($language_key_des as $key_des)
 		        				<ul class="list-group" id="add-language-key">
 		        					<li class="list-group-item">{{$key_des->key_name}}
-		        						<ul>
+		        						<ul >
 				        					@foreach($key_des->language_keys as $languageKey)
-					        					<li class="list-group-item ">
-					        			 			<textarea name="key_description_{{$languageKey->id}}" value="{{$languageKey->key_description}}"  class="col-8" style="height: 200px;">
-					        			 				{{$languageKey->key_description}}
+					        					<li  class="list-group-item"> 
+					        			 			<textarea name="key_description_{{$languageKey->id}}" value="{{$languageKey->key_description}}"  class="col-12 text-left" style="height: 200px;">	{{$languageKey->key_description}}
 					        			 			</textarea> 
 					        			 			<input class="float-center" type="file" accept=".ogg" value="{{$languageKey->language_audio}}" name="audio_{{$languageKey->id}}"/>
 					        			 			{{substr($languageKey->language_audio, 13)}}
@@ -146,7 +145,6 @@
 		/*add language script*/
 		var btnLanguageAdd = document.getElementById("btnAddLanguage"); 
 		btnLanguageAdd.addEventListener("click", function() {
-
 			
 		   var ul = document.getElementById("add-language-list");
 		    var candidate = document.getElementById("choose_language"); 
