@@ -32,5 +32,18 @@ use App\Model\LanguagesModel;
 			return KeysModel::with('language_keys')->get();
 
 		}	
+		public function update($arr,$id)
+		{
+		    KeysModel::where('id',$id)->update($arr);
+		}
+		public function delete($request)
+	    {
+	    	$keys=KeysModel::all()->where('id',$request->key_id);
+        	$keys->delete();
+        	
+        	$language_keys=LanguageKeysModel::all()->where('key_id',$request->key_id);
+        	$language_keys->delete();
+	        
+	    }
 	}
 ?>

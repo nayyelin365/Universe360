@@ -79,6 +79,9 @@
 					        			 			name="key_description_{{$languageKey->id}}" value="{{$languageKey->key_description}}"class="col-12 text-left" placeholder="{{$languageKey->languages->language_name}}" style="height: 100px;">{{$languageKey->key_description}}</textarea>
 					        			 			<input class="float-center" type="file" accept=".ogg" value="{{$languageKey->language_audio}}" name="audio_{{$languageKey->id}}"/>
 					        			 			{{substr($languageKey->language_audio, 13)}}
+					        			 			<audio controls>
+												  		<source src="http://localhost/Universe360/{{$languageKey->language_audio}}" type="audio/ogg">
+													</audio>
 					        			 			<input class="float-center" type="hidden" value="{{$languageKey->language_audio}}" name="audio_{{$languageKey->id}}"/>
 					        			 			<a href="http://localhost/Universe360/{{$languageKey->language_audio}}" class="float-right"><img src="images/sound.png" width="20" height="20"></a>
 					        		 			</li>
@@ -223,6 +226,7 @@
 	</div> 
 
 	<script type="text/javascript">	
+
 		/*add language script*/
 		var btnLanguageAdd = document.getElementById("btnAddLanguage"); 
 		btnLanguageAdd.addEventListener("click", function() {
@@ -317,6 +321,7 @@
 	    		success:function(data){
 	    			alert("insert successfully ");
 	    		}
+
 	    	})
 	    }
 	    function setLanguageKey(id){
@@ -326,6 +331,9 @@
 	    		data: {"key_name": id,"_token":"{{csrf_token()}}"},
 	    		success:function(data){
 	    			alert("insert successfully");
+	    		},
+	    		error:function(data){
+	    			alert("This key is already exist.Must be Unique Key ");
 	    		}
 	    	})
 	    }
