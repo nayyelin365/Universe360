@@ -68,6 +68,9 @@
 					        			 			</textarea> 
 					        			 			<input class="float-center" type="file" accept=".ogg" value="{{$languageKey->language_audio}}" name="audio_{{$languageKey->id}}"/>
 					        			 			{{substr($languageKey->language_audio, 13)}}
+					        			 			<audio controls>
+												  		<source src="http://localhost/Universe360/{{$languageKey->language_audio}}" type="audio/ogg">
+													</audio>
 					        			 			<input class="float-center" type="hidden" value="{{$languageKey->language_audio}}" name="audio_{{$languageKey->id}}"/>
 					        		 			</li>
 				        					@endforeach
@@ -142,6 +145,7 @@
 		</div>
 	</div> 
 	<script type="text/javascript">	
+
 		/*add language script*/
 		var btnLanguageAdd = document.getElementById("btnAddLanguage"); 
 		btnLanguageAdd.addEventListener("click", function() {
@@ -227,6 +231,7 @@
 	    		success:function(data){
 	    			alert("insert successfully ");
 	    		}
+
 	    	})
 	    }
 	    function setLanguageKey(id){
@@ -236,6 +241,9 @@
 	    		data: {"key_name": id,"_token":"{{csrf_token()}}"},
 	    		success:function(data){
 	    			alert("insert successfully");
+	    		},
+	    		error:function(data){
+	    			alert("This key is already exist.Must be Unique Key ");
 	    		}
 	    	})
 	    }

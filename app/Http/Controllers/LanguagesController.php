@@ -76,9 +76,12 @@ class LanguagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $arr['language_name'] = $request->language_name;
+        $id = $request->language_id;
+        $this->LanguagesService->update($arr,$id);
+        return redirect()->back();
     }
 
     /**
@@ -87,9 +90,10 @@ class LanguagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $this->LanguagesService->delete($request);
+        return redirect()->back();
     }
 
     //Ajax

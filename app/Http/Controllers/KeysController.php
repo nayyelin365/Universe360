@@ -73,9 +73,12 @@ class KeysController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $arr['key_name'] = $request->key_name;
+        $id = $request->key_id;
+        $this->KeysService->update($arr,$id);
+        return redirect()->back();
     }
 
     /**
@@ -84,8 +87,9 @@ class KeysController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $this->KeysService->delete($request);
+        return redirect()->back();
     }
 }
