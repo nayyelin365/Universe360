@@ -1,10 +1,14 @@
 <?php
+
+Route::get('application',function(){
+	return view('choose_application');
+});
  
 Route::get('/', 'LanguagesController@index')->middleware('auth');
 
 Auth::routes();
-//Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/lang', 'LanguagesController@index')->middleware('auth');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/lang', 'LanguagesController@index')->middleware('auth')->name('lang');
 
 
 //Ajax for public access
