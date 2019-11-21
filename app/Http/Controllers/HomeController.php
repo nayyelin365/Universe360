@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Service\LanguagesService;
-use App\Model\LanguagesModel;
 use App\Service\KeysService;
 
 class HomeController extends Controller
@@ -17,7 +16,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-         $this->LanguagesService = new LanguagesService();
+        $this->LanguagesService = new LanguagesService();
         $this->KeysService=new KeysService();
     }
 

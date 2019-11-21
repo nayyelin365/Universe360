@@ -1,13 +1,18 @@
 <?php 
 namespace App\Service;
+use App\Model\LanguagesModel;
 use App\Model\KeysModel;
 use App\Model\LanguageKeysModel;
-use App\Model\LanguagesModel;
 	class KeysService 
 	{
 	    public function get_all()
 		{
 			return KeysModel::get(['id','key_name']);
+		}
+		public function get($id)
+		{
+		    return KeysModel::find($id);
+
 		}
 		public function insert($request)
 	    {
@@ -36,14 +41,5 @@ use App\Model\LanguagesModel;
 		{
 		    KeysModel::where('id',$id)->update($arr);
 		}
-		public function delete($request)
-	    {
-	    	$keys=KeysModel::all()->where('id',$request->key_id);
-        	$keys->delete();
-        	
-        	$language_keys=LanguageKeysModel::all()->where('key_id',$request->key_id);
-        	$language_keys->delete();
-	        
-	    }
 	}
 ?>

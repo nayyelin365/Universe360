@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Service\LanguagesService;
-use App\Model\LanguagesModel;
 use App\Service\KeysService;
+use App\Service\LanguageKeysService;
+use App\Model\LanguagesModel;
 
 class LanguagesController extends Controller
 {
     function __construct()
     {
+        $this->LanguageKeysService = new LanguageKeysService();
         $this->LanguagesService = new LanguagesService();
         $this->KeysService=new KeysService();
     }
@@ -78,8 +80,8 @@ class LanguagesController extends Controller
      */
     public function update(Request $request)
     {
+        $id = $request->id;
         $arr['language_name'] = $request->language_name;
-        $id = $request->language_id;
         $this->LanguagesService->update($arr,$id);
         return redirect()->back();
     }
@@ -92,7 +94,15 @@ class LanguagesController extends Controller
      */
     public function destroy(Request $request)
     {
-        $this->LanguagesService->delete($request);
+        $id=$request->id;
+
+        $language_keys=$this->LanguageKeysService->get_language($id);
+        foreach ($language_keys as $language_key) {
+            $language_key->delete();
+        }
+        $language=$this->LanguagesService->get($id);
+        $language->delete();
+
         return redirect()->back();
     }
 
