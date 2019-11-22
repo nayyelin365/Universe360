@@ -35,10 +35,11 @@
 			    	 				<?php
 			    	 					}
 			    	 				?> 
-			    	 				{{$lang->language_name}} 
+			    	 				{{$lang->language_name}}
+			    	 				<a class="float-right" onclick="return confirm('Are you sure you want to remove this language ({{$lang->language_name}})?')" href="{{url('language_delete', $lang->id)}}"><img class="float-right" style="margin-left: 20px;" src="images/delete.png" ></a> 
 
-			    	 				<img onclick="deleteLanguage('{{$lang->id}}')" class="float-right" style="margin-left: 20px;" src="images/delete.png" >
-			    	 				<img src="images/edit.png" data-toggle="modal" data-id="{{$lang->language_name}}" data-name="{{$lang->language_name}}" title="Add this item" class="float-right open-UpdateLanguageDialog" href="#updateLanguageDialog">
+			    	 				<!-- <img onclick="deleteLanguage('{{$lang->id}}')" class="float-right" style="margin-left: 20px;" src="images/delete.png" > -->
+			    	 				<img src="images/edit.png" data-toggle="modal" data-id="{{$lang->id}}" data-name="{{$lang->language_name}}" title="Add this item" class="float-right open-UpdateLanguageDialog" href="#updateLanguageDialog">
 			    	 			</li> 
 		    				@endforeach
 	        			</ul>
@@ -65,7 +66,8 @@
 			    			@foreach($language_key_des as $key_des)
 		        				<ul class="list-group" id="add-language-key">
 		        					<li class="list-group-item">{{$key_des->key_name}}
-		        						<img src="images/delete.png" style="margin-left: 20px;" class="float-right" onclick="deleteKey('{{$key_des->id}}')">
+		        						<a class="float-right" onclick="return confirm('Are you sure you want to remove this key ({{$key_des->key_name}})?')" href="{{url('key_delete', $key_des->id)}}"><img class="float-right" style="margin-left: 20px;" src="images/delete.png" ></a>
+		        						<!-- <img src="images/delete.png" style="margin-left: 20px;" class="float-right" onclick="deleteKey('{{$key_des->id}}')"> -->
 		        						<img src="images/edit.png" data-toggle="modal" data-id="{{$key_des->id}}" data-name="{{$key_des->key_name}}" title="Add this item" class="float-right open-UpdateKeyDialog" href="#updateKeyDialog">
 		        						<ul style="margin-top: 20px;" >
 				        					@foreach($key_des->language_keys as $languageKey)
@@ -75,7 +77,7 @@
 					        			 			name="key_description_{{$languageKey->id}}" value="{{$languageKey->key_description}}"class="col-12 text-left" placeholder="{{$languageKey->languages->language_name}}" style="height: 100px;">{{$languageKey->key_description}}</textarea>
 					        			 			<input type="file" accept=".ogg" value="{{$languageKey->language_audio}}" name="audio_{{$languageKey->id}}"/>
 					        			 			{{substr($languageKey->language_audio, 13)}}<br>
-					        			 			<audio controls>
+					        			 			<audio controls style="width: 100%; max-width: 100px;">
 												  		<source src="http://localhost/Universe360/{{$languageKey->language_audio}}" type="audio/ogg">
 													</audio>
 					        			 			<input type="hidden" value="{{$languageKey->language_audio}}" name="audio_{{$languageKey->id}}"/>
@@ -222,7 +224,7 @@
 		    	</div>
 		  	</div>
 		</div>
-		<!--Start Modals -->
+		<!--End Modals -->
 	</div> 
 
 	<script type="text/javascript">	
@@ -241,7 +243,13 @@
 	    		type:"POST",
 	    		data:{"language_name":id,"_token":"{{csrf_token()}}"},
 	    		success:function(data){
+	    			window.location.reload(true);
 	    			alert("insert successfully ");
+	    			/*if(data.success == true){ // if true (1)
+				      setTimeout(function(){// wait for 5 secs(2)
+				           location.reload(true); // then reload the page.(3)
+				      }, 5000); 
+				   }*/
 	    		}
 	    	})
 	    }
@@ -259,7 +267,6 @@
 	 	btnLanguageUpdate.addEventListener("click", function() {
 			var id = document.getElementById("languageid"); 
 			var name=document.getElementById("languagename");
-			alert(id.value+name.value);
 			languageUpdate(id.value,name.value);
 		}) 
 
@@ -270,24 +277,31 @@
 	    		type: "POST",
 	    		data: {"id": id,"language_name":name,"_token":"{{ csrf_token() }}"},
 	    		success:function(data){
+	    			window.location.reload(true);
 	    			alert("update successfully");
-	    			console.log(data);
 	    		}
 	    	});
 		 }
 
 		 /*Remove language from the DB when click the delete img*/
 		 function deleteLanguage(id){
-	    	//alert(id);
-	    	$.ajax({
-	    		url: "{!! url('language_delete') !!}",
-	    		type: "POST",
-	    		data: {"id": id,"_token":"{{ csrf_token() }}"},
-	    		success:function(data){
-	    			alert("delete language successfully");
-	    			console.log(data);
-	    		}
-	    	});
+	    	var x = confirm("Are you sure you want to delete?");
+            if (x) {
+            	$.ajax({
+	    			url: "{!! url('language_delete') !!}",
+	    			type: "POST",
+	    			data: {"id": id,"_token":"{{ csrf_token() }}"},
+	    			success:function(data){
+	    				window.location.reload(true);
+	    				alert("delete language successfully");
+	    			}
+    			});
+                return true;
+            }
+            else {
+                event.preventDefault();
+                return false;
+            }
 	    }
 
 	    /*Add new key when click the button 'btnAddkey'*/
@@ -305,9 +319,11 @@
 	    		type:"POST",
 	    		data: {"key_name": id,"_token":"{{csrf_token()}}"},
 	    		success:function(data){
+	    			window.location.reload(true);
 	    			alert("insert successfully");
 	    		},
 	    		error:function(data){
+	    			window.location.reload(true);
 	    			alert("This key is already exist.Must be Unique Key ");
 	    		}
 	    	})
@@ -336,8 +352,8 @@
 	    		type: "POST",
 	    		data: {"id": id,"key_name":name,"_token":"{{ csrf_token() }}"},
 	    		success:function(data){
+	    			window.location.reload(true);
 	    			alert("update successfully");
-	    			console.log(data);
 	    		}
 	    	});
 		 }
@@ -349,8 +365,8 @@
 	    		type: "POST",
 	    		data: {"id": id,"_token":"{{ csrf_token() }}"},
 	    		success:function(data){
+	    			window.location.reload(true);
 	    			alert("delete key successfully");
-	    			console.log(data);
 	    		}
 	    	});
 	    }

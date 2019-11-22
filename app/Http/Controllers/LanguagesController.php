@@ -53,6 +53,7 @@ class LanguagesController extends Controller
     public function store(Request $request)
     {
          $this->LanguagesService->insert($request);
+         return redirect()->back();
     }
 
     /**
@@ -104,6 +105,26 @@ class LanguagesController extends Controller
 
         $language_keys=$this->LanguageKeysService->get_language($id);
         foreach ($language_keys as $language_key) {
+            $language_key->delete();
+        }
+        $language=$this->LanguagesService->get($id);
+        $language->delete();
+
+        return redirect()->back();
+    }
+    public function delete($id)
+    {
+        $language_keys=$this->LanguageKeysService->get_language($id);
+        foreach ($language_keys as $language_key) {
+            $audio_path="http://localhost/Universe360/".$language_key->language_audio;
+            //dd($audio_path);
+            if (file_exists("/Universe360/".$language_key->language_audio)) {
+                dd("file_exist ".$audio_path);
+               @unlink($audio_path);
+            }
+            else{
+                dd($audio_path);
+            }
             $language_key->delete();
         }
         $language=$this->LanguagesService->get($id);

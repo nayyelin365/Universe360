@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Service\LanguageKeysService;
-use App\Model\LanguagesModel;
-use App\Model\KeysModel;
-use App\Model\LanguageKeysModel;
+use App\Service\AppService;
+use App\Service\LanguageService;
+use App\Service\AppLanguageService;
 
-class LanguageKeysController extends Controller
+class LanguageController extends Controller
 {
     function __construct()
     {
-        $this->LanguageKeysService = new LanguageKeysService();
+        $this->AppService = new AppService();
+        $this->LanguageService = new LanguageService();
+        $this->AppLanguageService = new AppLanguageService();
     }
     /**
      * Display a listing of the resource.
@@ -21,8 +22,9 @@ class LanguageKeysController extends Controller
      */
     public function index()
     {
-        $data = $this->LanguageKeysService->get_all();
-        return dd($data);
+        $data["language_get_all"] = $this->LanguageService->get_all();
+        $data["app_language_get_all"] = $this->AppLanguageService->get_all();
+        dd($data);
     }
 
     /**
@@ -43,24 +45,7 @@ class LanguageKeysController extends Controller
      */
     public function store(Request $request)
     {
-        $languageKeys = LanguageKeysModel::all();
-        foreach ($languageKeys as $languageKey) {
-            $audio_id='audio_'.$languageKey->id;
-            if($request->hasFile($audio_id)){
-                $audioName =$languageKey->keys->key_name.'_in_'. $languageKey->languages->language_name.'.'.$request->$audio_id->getClientOriginalExtension();
-                $request->$audio_id->move(public_path('audio'), $audioName);
-                $path='public/audio/'.$audioName;
-            }
-            else {
-                $path=$request->$audio_id;
-            }
-            
-            $languageKeys->language_audio=$path;
-
-            $languageKey->update(["key_description" => request("key_description_".$languageKey->id),"language_audio" => $path]);
-        }
-
-        return redirect()->back();
+        //
     }
 
     /**
@@ -106,13 +91,5 @@ class LanguageKeysController extends Controller
     public function destroy($id)
     {
         //
-    }
-     public function descriptionupdate(Request $request)
-    {
-        $languagesModel = LanguagesModel::find($request->id);
-        $languagesModel->public_access = "Yes";
-        $languagesModel->save();
-
-        return response("ok");
     }
 }

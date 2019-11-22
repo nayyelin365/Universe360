@@ -16,7 +16,6 @@ class CreateKeysTable extends Migration
         Schema::create('keys', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('key_name');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

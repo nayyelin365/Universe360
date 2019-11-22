@@ -3,11 +3,9 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class LanguageKeysModel extends Model
 {
-    use SoftDeletes;
     protected $table = 'language_keys';
     protected $guarded = [];
 	public function keys()
