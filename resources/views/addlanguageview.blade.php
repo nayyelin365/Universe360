@@ -116,7 +116,16 @@
 				            	<label for="recipient-name" class="col-form-label">
 				            		Language:
 				            	</label>
-				            	<input type="text" class="form-control" id="choose_language">
+				            	<!-- <input type="text" class="form-control" id="choose_language"> -->
+				            	@foreach($language_get_all as $lang)
+				            	<br>
+				            	<!-- Material indeterminate -->
+								<div class="form-check">
+								  <input type="checkbox" class="form-check-input" id="materialIndeterminate2" checked>
+								  <label class="form-check-label" for="materialIndeterminate2">{{$lang->language_name}}</label>
+								</div><br>
+				            	 
+				            	@endforeach
 			            	</div>
 			          	</form> 
 		      		</div>

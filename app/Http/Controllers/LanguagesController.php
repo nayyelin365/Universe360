@@ -25,6 +25,12 @@ class LanguagesController extends Controller
     {
         $data["language_get_all"] = $this->LanguagesService->get_all();
         $data["language_key_des"]=$this->KeysService->getKeyDesription();
+        return view('choose_application')->with($data);
+    }
+
+    public function changeLanguage(){ 
+        $data["language_get_all"] = $this->LanguagesService->get_all();
+        $data["language_key_des"]=$this->KeysService->getKeyDesription();
         return view('addlanguageview')->with($data);
     }
 
