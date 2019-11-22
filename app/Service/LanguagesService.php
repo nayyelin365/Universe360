@@ -1,14 +1,20 @@
 <?php 
 namespace App\Service;
+
+use App\Model\LanguagesModel;
 use App\Model\KeysModel;
 use App\Model\LanguageKeysModel;
-use App\Model\LanguagesModel;
 
 	class LanguagesService 
 	{
 	    public function get_all()
 		{
 			return LanguagesModel::all();
+		}
+		public function get($id)
+		{
+		    return LanguagesModel::find($id);
+
 		}
 		public function get_languages_according_to_public_access()
 		{
@@ -38,14 +44,5 @@ use App\Model\LanguagesModel;
 		{
 		    LanguagesModel::where('id',$id)->update($arr);
 		}
-	    public function delete($request)
-	    {
-	    	$languages=LanguagesModel::all()->where('id',$request->language_id);
-        	$languages->delete();
-        	
-        	$language_keys=LanguageKeysModel::all()->where('language_id',$request->language_id);
-        	$language_keys->delete();
-	        
-	    }
 	}
 ?>

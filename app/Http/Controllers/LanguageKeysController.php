@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Service\LanguageKeysService;
-use App\Model\LanguageKeysModel;
-use App\Model\KeysModel;
 use App\Model\LanguagesModel;
+use App\Model\KeysModel;
+use App\Model\LanguageKeysModel;
 
 class LanguageKeysController extends Controller
 {
