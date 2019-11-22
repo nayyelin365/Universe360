@@ -6,6 +6,8 @@ Route::get('application',function(){
  
 Route::get('/', 'LanguagesController@index')->middleware('auth');
 
+Route::get('/change_language','LanguagesController@changeLanguage')->middleware('auth');
+
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/lang', 'LanguagesController@index')->middleware('auth')->name('lang');

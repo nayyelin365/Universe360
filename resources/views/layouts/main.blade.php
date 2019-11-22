@@ -4,6 +4,7 @@
     <head>
         @include('layouts.public.headcss')
         @include('layouts.public.script')
+        @yield('style')
     </head>
 
     <body>

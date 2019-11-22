@@ -1,14 +1,30 @@
 @extends('layouts.main')
 @include('layouts.app')
-@section('content')
+@section('style')
+<style>
+	.card{
+		margin: 2px;
+	}
+	.row{
+		margin: 5px;
+	}
+</style>
+@stop
+@section('content') 	
 
-<div class="card" style="width: 18rem;">
-  <img src="images/add.png" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
+<div class="container" >
+    <div class="row justify-content-md-center">
+    	@foreach($language_get_all as $lang) 
+    	<div class="card col-lg-3 col-md-6">
+		  <img class="card-img-top" src="images/add.png" alt="Card image cap">
+		  <div class="card-body">
+		    <h5 class="card-title">{{$lang->language_name}} </h5>
+		    <p class="card-text">{{$lang->language_name}} </p>
+		    <a class="btn btn-primary" href="{{url('/change_language', $lang->id)}} ">Go</a>
+		  </div>
+		</div> 		
+		 @endforeach
+	</div>
+</div> 
 
 @endsection
