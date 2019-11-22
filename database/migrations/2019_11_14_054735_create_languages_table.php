@@ -17,7 +17,6 @@ class CreateLanguagesTable extends Migration
             $table->bigIncrements('id');
             $table->text('language_name');
             $table->text('public_access');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

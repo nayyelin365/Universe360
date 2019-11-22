@@ -17,11 +17,20 @@ Route::post('unset-lang-public-access','LanguagesController@unsetPublicAccess');
 Route::post('language/store','LanguagesController@store'); 
 Route::post('language_update','LanguagesController@update');
 Route::post('language_delete','LanguagesController@destroy');
+Route::get('language_delete/{id}','LanguagesController@delete');
 
 //key
 Route::post('language_key/store','KeysController@store');
 Route::post('key_update','KeysController@update');
 Route::post('key_delete','KeysController@destroy');
+Route::get('key_delete/{id}','KeysController@delete');
 
 //key value
 Route::post('description/update','LanguageKeysController@store');
+
+//test
+Route::get('app','AppController@index');
+Route::get('language','LanguageController@index');
+Route::get('app_language/{id}','AppLanguageController@index');
+Route::get('app_language_key','AppLanguageKeyController@index');
+

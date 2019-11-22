@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLanguageKeysTable extends Migration
+class CreateAppTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateLanguageKeysTable extends Migration
      */
     public function up()
     {
-        Schema::create('language_keys', function (Blueprint $table) {
+        Schema::create('app', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('language_id');
-            $table->integer('key_id');
-            $table->text('key_description')->nullable();
-            $table->text('language_audio')->nullable();
+            $table->text('app_name');
+            $table->text('app_image');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateLanguageKeysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('language_keys');
+        Schema::dropIfExists('app');
     }
 }
