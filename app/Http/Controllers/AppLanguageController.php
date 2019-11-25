@@ -30,10 +30,10 @@ class AppLanguageController extends Controller
         $app = AppModel::find($id);
         
         //LanguageIdList
-        $languageIds = $app->app_language->pluck('id');
+        $languageIds = $app->app_language->pluck('language_id');
 
         //LanguageKeyList
-        $languageKeyIds = LanguageKeysModel::whereIn('language_id',$languageIds)->pluck('key_id');
+        $languageKeyIds = LanguageKeysModel::whereIn('language_id',$languageIds)->pluck('id');
 
         //Remove duplicate key_id
         $uniqueLanguageKeyIds = $languageKeyIds->unique();
@@ -41,12 +41,12 @@ class AppLanguageController extends Controller
         //key_value_audio
         $data["app_language_key_get_all"]=KeysModel::with('language_keys')->whereIn('id',$uniqueLanguageKeyIds)->get();
 
-        //dd($key_value_audios);
+        //$data["app_language_key_get_all"]= LanguageKeysModel::with('keys')->whereIn('language_id',$languageIds)->get();
+
+        //dd($data->keys->pluck('id'));
 
         $data["language_get_all"] = $this->LanguagesService->get_all();
         $data["app_language_get_all"] = $this->AppLanguageService->get_app_language($id);
-        //$data["app_language_key_get_all"] = $this->LanguagesService->get_app_language_key($id);
-        //dd($data);
         return view('app_language_view')->with($data);
     }
 
@@ -68,7 +68,8 @@ class AppLanguageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->AppLanguageService->insert($request);
+        return redirect()->back();
     }
 
     /**
@@ -113,6 +114,22 @@ class AppLanguageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $app_language=$this->AppLanguageService->get($id);
+        $app_language->delete();
+
+        return redirect()->back();
+    }
+    public function setPublicAccess(Request $request)
+    {
+        $language_id = $request->id;
+        $arr['public_access'] = "Yes";
+        $this->AppLanguageService->update($arr,$language_id);
+        return redirect()->back();
+    }
+    public function unsetPublicAccess(Request $request){
+        $language_id = $request->id;
+        $arr['public_access'] = "No";
+        $this->AppLanguageService->update($arr,$language_id);
+        return redirect()->back();
     }
 }

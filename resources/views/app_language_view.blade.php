@@ -26,17 +26,17 @@
 			    	 					if($puclic_check=='No'){ 
 
 			    	 				?>
-			    	 						<input style="margin-top: 7px;" type="checkbox"  value="{{$app_lang->id}}" name="lang" > 
+			    	 						<input style="margin-top: 7px;" type="checkbox"  value="{{$app_lang->language_id}}" name="lang" > 
 			    	 				<?php
 			    	 					}else{
 
 			    	 				?>
-			    	 						<input style="margin-top: 7px;" type="checkbox"  value="{{$app_lang->id}}" name="lang" checked> 
+			    	 						<input style="margin-top: 7px;" type="checkbox"  value="{{$app_lang->language_id}}" name="lang" checked> 
 			    	 				<?php
 			    	 					}
 			    	 				?> 
 			    	 				{{$app_lang->languages->language_name}}
-			    	 				<a class="float-right" onclick="return confirm('Are you sure you want to remove this language ({{$app_lang->languages->language_name}})?')" href="{{url('language_delete', $app_lang->id)}}"><img class="float-right" style="margin-left: 20px;" src="{{url('images/delete.png')}}" ></a> 
+			    	 				<a class="float-right" onclick="return confirm('Are you sure you want to remove this language ({{$app_lang->languages->language_name}}) from app?')" href="{{url('app_language_delete', $app_lang->id)}}"><img class="float-right" style="margin-left: 20px;" src="{{url('images/delete.png')}}" ></a> 
 			    	 			</li> 
 		    				@endforeach
 	        			</ul>
@@ -92,11 +92,6 @@
 	        	<div class="card">
 			  		<div class="card-header">
 			    		Translation 
-			    		<span class="float-right">
-							<button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#choose_translation" data-whatever="@getbootstrap">
-								 <img src="{{url('images/add.png')}}">Add 
-							</button>
-						</span>
 			  		</div>
 			  		<div class="card-body">
 			    		<div class="col-12">
@@ -123,28 +118,46 @@
 				</div>
 	      	</div> 
 	  	</form>
-	  	<!-- <div>
-	  		<ul>
-	  			@foreach($app_language_key_get_all as $app_lang_key)
-	  				<li>
-	  					{{$app_lang_key->key_name}}
-	  				</li>
-	  				<li>
-	  					<ul>
-		  					@foreach($app_lang_key->language_keys as $app_lang_key_value)
-				  				<li>
-				  					{{$app_lang_key_value->key_description}}
-				  				</li>
-				  				<li>
-				  					{{$app_lang_key_value->language_audio}}
-				  				</li>
-		  					@endforeach
-		  				</ul>
-	  				</li>
-	  			@endforeach
-	  		</ul>
-	  	</div> -->
 
-	    
+	<script type="text/javascript">
+		/*To check whether access or not language*/
+		$(function()
+	    {
+	        $('input[name=lang]').change(function(){
+			    if($(this).is(':checked')) {
+			     	setLanguageStatus(this.value);
+			    }
+			    else{
+			    	unsetLanguageStatus(this.value);
+			    }
+			});
+			$( "desupdate" ).click(function() {
+			  alert(this.value);
+			});
+	    });
+		//Change public_access  to the language
+		function setLanguageStatus(id){
+			alert(id);
+	    	$.ajax({
+	    		url: "{!! url('aa') !!}",
+	    		type: "POST",
+	    		data: {"id": id,"_token":"{{ csrf_token() }}"},
+	    		success:function(data){
+	    			console.log(data);
+	    		}
+	    	});
+	    }
+	    //Change not public_access  to the language
+	    function unsetLanguageStatus(id){
+	    	$.ajax({
+	    		url: "{!! url('bb') !!}",
+	    		type: "POST",
+	    		data: {"id": id,"_token":"{{ csrf_token() }}"},
+	    		success:function(data){
+	    			console.log(data);
+	    		}
+	    	});
+	    }
+	</script>    
 </body>
 @endsection
