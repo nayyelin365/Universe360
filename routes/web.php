@@ -36,3 +36,4 @@ Route::get('language','LanguageController@index');
 Route::get('app_language/{id}','AppLanguageController@index');
 Route::get('app_language_key','AppLanguageKeyController@index');
 
+

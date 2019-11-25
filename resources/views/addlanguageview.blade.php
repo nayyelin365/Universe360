@@ -24,12 +24,10 @@
 			    	 				<?php
 			    	 					$puclic_check=$lang->public_access;
 			    	 					if($puclic_check=='No'){ 
-
 			    	 				?>
 			    	 						<input style="margin-top: 7px;" type="checkbox"  value="{{$lang->id}}" name="lang" > 
 			    	 				<?php
 			    	 					}else{
-
 			    	 				?>
 			    	 						<input style="margin-top: 7px;" type="checkbox"  value="{{$lang->id}}" name="lang" checked> 
 			    	 				<?php
@@ -116,16 +114,7 @@
 				            	<label for="recipient-name" class="col-form-label">
 				            		Language:
 				            	</label>
-				            	<!-- <input type="text" class="form-control" id="choose_language"> -->
-				            	@foreach($language_get_all as $lang)
-				            	<br>
-				            	<!-- Material indeterminate -->
-								<div class="form-check">
-								  <input type="checkbox" class="form-check-input" id="materialIndeterminate2" checked>
-								  <label class="form-check-label" for="materialIndeterminate2">{{$lang->language_name}}</label>
-								</div><br>
-				            	 
-				            	@endforeach
+				            	<input type="text" class="form-control" id="choose_language">
 			            	</div>
 			          	</form> 
 		      		</div>
@@ -228,14 +217,12 @@
 	</div> 
 
 	<script type="text/javascript">	
-
 		/*Add new language when click the button 'btnAddLanguage'*/
 		var btnLanguageAdd = document.getElementById("btnAddLanguage"); 
 		btnLanguageAdd.addEventListener("click", function() {
 			var candidate = document.getElementById("choose_language"); 
 		    setLanguage(candidate.value);
 		})
-
 		//Add new language to the Database
 		function setLanguage(id){
 	    	$.ajax({
@@ -253,7 +240,6 @@
 	    		}
 	    	})
 	    }
-
 	    //Bind the language into the modal dialog when click the edit img
 	    $(document).on("click", ".open-UpdateLanguageDialog ", function () {
 		     var languageId = $(this).data('id');
@@ -261,7 +247,6 @@
 		     $(".modal-body #languageid").val( languageId);   
 		     $(".modal-body #languagename").val( languageName);	     
 		});
-
 		/*Save change language when click the button 'btnUpdateLanguage'*/
 		var btnLanguageUpdate = document.getElementById("btnUpdateLanguage"); 
 	 	btnLanguageUpdate.addEventListener("click", function() {
@@ -269,7 +254,6 @@
 			var name=document.getElementById("languagename");
 			languageUpdate(id.value,name.value);
 		}) 
-
 		 //Update language with language id
 		function languageUpdate(id,name){
 		 	$.ajax({
@@ -282,7 +266,6 @@
 	    		}
 	    	});
 		 }
-
 		 /*Remove language from the DB when click the delete img*/
 		 function deleteLanguage(id){
 	    	var x = confirm("Are you sure you want to delete?");
@@ -303,7 +286,6 @@
                 return false;
             }
 	    }
-
 	    /*Add new key when click the button 'btnAddkey'*/
 		var btnKeyAdd = document.getElementById("btnAddkey"); 
 		btnKeyAdd.addEventListener("click", function() {
@@ -311,7 +293,6 @@
 		    var candidate = document.getElementById("choose_language_key");
 		    setKey(candidate.value);
 		})
-
 		//Add new key to the Database
 		function setKey(id){
 	    	$.ajax({
@@ -328,7 +309,6 @@
 	    		}
 	    	})
 	    }
-
 	    //Bind the key into the modal dialog when click the edit img
 		$(document).on("click", ".open-UpdateKeyDialog ", function () {
 		     var keyId = $(this).data('id');
@@ -336,7 +316,6 @@
 		     $(".modal-body #keyid").val( keyId);   
 		     $(".modal-body #keyname").val( keyName);	     
 		});
-
 		 /*Save change key when click the button 'btnUpdateKey'*/
 		var btnUpdateKey = document.getElementById("btnUpdateKey"); 
 	 	btnUpdateKey.addEventListener("click", function() {
@@ -344,7 +323,6 @@
 			var name=document.getElementById("keyname");
 			keyUpdate(id.value,name.value); 
 		}) 
-
 		 //Update key with key id
 		function keyUpdate(id,name){
 		 	$.ajax({
@@ -357,7 +335,6 @@
 	    		}
 	    	});
 		 }
-
 		 /*Remove key from the DB when click the delete img*/
 		 function deleteKey(id){
 	    	 $.ajax({
@@ -370,7 +347,6 @@
 	    		}
 	    	});
 	    }
-
 		/*To check whether access or not language*/
 		$(function()
 	    {
@@ -386,7 +362,6 @@
 			  alert(this.value);
 			});
 	    });
-
 		//Change public_access  to the language
 		function setLanguageStatus(id){
 	    	$.ajax({
@@ -398,7 +373,6 @@
 	    		}
 	    	});
 	    }
-
 	    //Change not public_access  to the language
 	    function unsetLanguageStatus(id){
 	    	$.ajax({

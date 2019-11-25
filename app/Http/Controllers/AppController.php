@@ -4,16 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Service\AppService;
-use App\Service\LanguageService;
-use App\Service\AppLanguageService;
 
 class AppController extends Controller
 {
     function __construct()
     {
         $this->AppService = new AppService();
-        $this->LanguageService = new LanguageService();
-        $this->AppLanguageService = new AppLanguageService();
     }
     /**
      * Display a listing of the resource.
@@ -23,7 +19,6 @@ class AppController extends Controller
     public function index()
     {
         $data["app_get_all"] = $this->AppService->get_all();
-        dd($data);
         return view('choose_application')->with($data);
     }
 

@@ -7,6 +7,7 @@ use App\Service\LanguageKeysService;
 use App\Model\LanguagesModel;
 use App\Model\KeysModel;
 use App\Model\LanguageKeysModel;
+use App\Http\Resources\LanguageKeysResource;
 
 class LanguageKeysController extends Controller
 {
@@ -22,7 +23,7 @@ class LanguageKeysController extends Controller
     public function index()
     {
         $data = $this->LanguageKeysService->get_all();
-        return dd($data);
+        return dd(LanguageKeysResource::collection($data));
     }
 
     /**
