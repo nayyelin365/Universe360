@@ -36,7 +36,6 @@
 			    	 				{{$lang->language_name}}
 			    	 				<a class="float-right" onclick="return confirm('Are you sure you want to remove this language ({{$lang->language_name}})?')" href="{{url('language_delete', $lang->id)}}"><img class="float-right" style="margin-left: 20px;" src="images/delete.png" ></a> 
 
-			    	 				<!-- <img onclick="deleteLanguage('{{$lang->id}}')" class="float-right" style="margin-left: 20px;" src="images/delete.png" > -->
 			    	 				<img src="images/edit.png" data-toggle="modal" data-id="{{$lang->id}}" data-name="{{$lang->language_name}}" title="Add this item" class="float-right open-UpdateLanguageDialog" href="#updateLanguageDialog">
 			    	 			</li> 
 		    				@endforeach
