@@ -14,13 +14,13 @@
 
 <div class="container" >
     <div class="row justify-content-md-center">
-    	@foreach($language_get_all as $lang) 
+    	@foreach($app_get_all as $app) 
     	<div class="card col-lg-3 col-md-6">
 		  <img class="card-img-top" src="images/add.png" alt="Card image cap">
 		  <div class="card-body">
-		    <h5 class="card-title">{{$lang->language_name}} </h5>
-		    <p class="card-text">{{$lang->language_name}} </p>
-		    <a class="btn btn-primary" href="{{url('/change_language', $lang->id)}} ">Go</a>
+		    <h5 class="card-title">{{$app->app_name}} </h5>
+		    <p class="card-text">{{$app->app_name}} </p>
+		    <a class="btn btn-primary" href="{{url('/app_language', $app->id)}} ">Go</a>
 		  </div>
 		</div> 		
 		 @endforeach

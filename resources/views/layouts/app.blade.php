@@ -29,7 +29,7 @@
                 <!-- <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'AddLanguage') }}
                 </a> -->
-                <a class="navbar-brand" href="#"><img src="images/logo1.png" width="80" height="40" alt="logo"></a>
+                <a class="navbar-brand" href="#"><img src="{{url('images/logo1.png')}}" width="80" height="40" alt="logo"></a>
 
                 <h2 style="color: white;margin-left: 10px;">Authoring Tools</h2>
                 <button style="background: #ff8800;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}"> <span class="navbar-toggler-icon"></span>

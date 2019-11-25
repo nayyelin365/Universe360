@@ -9,12 +9,23 @@ use App\Service\LanguagesService;
 use App\Http\Resources\LanguageKeysResource;
 use App\Http\Resources\LanguagesResource;
 
+use App\Service\AppService;
+use App\Http\Resources\TestResource;
+
+
 class LanguagesApiController extends Controller
 {
     function __construct()
     {
         $this->LanguageKeysService = new LanguageKeysService();
         $this->LanguagesService = new LanguagesService();
+
+        $this->AppService = new AppService();
+    }
+    public function app()
+    {
+        $data = $this->AppService->get_all();
+        return TestResource::collection($data);
     }
     public function languages()
     {
@@ -29,6 +40,7 @@ class LanguagesApiController extends Controller
     public function index(Request $request)
     {   //get all languages
         $data = $this->LanguageKeysService->get_all();
+        return response()->json($data);
         return LanguageKeysResource::collection($data);
 
         //get each language

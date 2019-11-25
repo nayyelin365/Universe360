@@ -7,15 +7,11 @@ use App\Model\AppLanguageModel;
 	{
 	    public function get_all()
 		{
-			return AppLanguageModel::with('app','language')->get();
+			return AppLanguageModel::with('app','languages')->get();
 		}
 		public function get_app_language($id)
 		{
-			return AppLanguageModel::with('language')->where('language_id',$id)->get();
-		}
-		public function get_app_language_key($id)
-		{
-			return AppLanguageModel::with('language','app_language_key')->where('language_id',$id)->get();
+			return AppLanguageModel::with('languages')->where('app_id',$id)->get();
 		}
 	}
 ?>

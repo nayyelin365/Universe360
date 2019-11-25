@@ -11,6 +11,9 @@ use App\Model\LanguageKeysModel;
 		{
 			return LanguagesModel::all();
 		}
+		public function get_app_language_key($id){
+			return LanguagesModel::with('app_language','language_keys')->get()->where('app_language.app_id',$id);
+		}
 		public function get($id)
 		{
 		    return LanguagesModel::find($id);

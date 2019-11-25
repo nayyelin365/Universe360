@@ -7,6 +7,7 @@ use App\Model\AppLanguageModel;
 	{
 	    public function get_all()
 		{
+			return AppModel::all();
 			return AppModel::get(['id','app_name','app_image']);
 		}
 		public function get($id)
