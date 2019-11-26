@@ -117,14 +117,9 @@ class LanguagesController extends Controller
     {
         $language_keys=$this->LanguageKeysService->get_language($id);
         foreach ($language_keys as $language_key) {
-            $audio_path="http://localhost/Universe360/".$language_key->language_audio;
-            //dd($audio_path);
-            if (file_exists("/Universe360/".$language_key->language_audio)) {
-                dd("file_exist ".$audio_path);
-               @unlink($audio_path);
-            }
-            else{
-                dd($audio_path);
+            $path=public_path().'\audio\\'.substr($language_key->language_audio, 13);
+            if (file_exists($path)) {
+               @unlink($path);
             }
             $language_key->delete();
         }

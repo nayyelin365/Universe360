@@ -21,7 +21,7 @@
 	           					 
 			    	 			<li class="list-group-item">
 
-			    	 				<?php
+			    	 				<!-- <?php
 			    	 					$puclic_check=$lang->public_access;
 			    	 					if($puclic_check=='No'){ 
 			    	 				?>
@@ -32,7 +32,7 @@
 			    	 						<input style="margin-top: 7px;" type="checkbox"  value="{{$lang->id}}" name="lang" checked> 
 			    	 				<?php
 			    	 					}
-			    	 				?> 
+			    	 				?>  -->
 			    	 				{{$lang->language_name}}
 			    	 				<a class="float-right" onclick="return confirm('Are you sure you want to remove this language ({{$lang->language_name}})?')" href="{{url('language_delete', $lang->id)}}"><img class="float-right" style="margin-left: 20px;" src="images/delete.png" ></a> 
 

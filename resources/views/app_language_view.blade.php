@@ -77,15 +77,13 @@
 				            	<label for="recipient-name" class="col-form-label">
 				            		Language:
 				            	</label>
-				            	<!-- <input type="text" class="form-control" id="choose_language"> -->
+				            	<input type="hidden" name="app_id" id="app_id" value="{{$app_language_get_all[0]->app_id}}">
 				            	@foreach($language_get_all as $lang)
-				            	<br>
 				            	<!-- Material indeterminate -->
-								<div class="form-check">
-								  <input type="checkbox" class="form-check-input" id="materialIndeterminate2">
-								  <label class="form-check-label" for="materialIndeterminate2">{{$lang->language_name}}</label>
-								</div><br>
-				            	 
+									<div class="form-check">
+										<input type="checkbox" name="location[]" class="form-check-input" value="{{$lang->id}}" id="materialIndeterminate2">
+										<label class="form-check-label" for="materialIndeterminate2">{{$lang->language_name}}</label>
+									</div><br>
 				            	@endforeach
 			            	</div>
 			          	</form> 
@@ -108,20 +106,21 @@
 			  		</div>
 			  		<div class="card-body">
 			    		<div class="col-12">
-			    			@foreach($app_language_key_get_all as $app_lang_key)
+			    			@foreach($keys as $key)
 		        				<ul class="list-group" id="add-language-key">
-		        					<li class="list-group-item">{{$app_lang_key->key_name}}
+		        					<li class="list-group-item">
+		        						{{$key->key_name}}
 		        						<ul style="margin-top: 20px;" >
-				        					@foreach($app_lang_key->language_keys as $app_lang_key_value)
-					        					<li  class="list-group-item"> 
-					        			 			{{$app_lang_key_value->key_description}}
-					        			 			<br>
-					        			 			{{substr($app_lang_key_value->language_audio, 13)}}<br>
-					        			 			<audio controls style="width: 100%; max-width: 100px;">
-												  		<source src="http://localhost/Universe360/{{$app_lang_key_value->language_audio}}" type="audio/ogg">
+		        							@foreach($key->language_keys->whereIn('language_id',$languageIds) as $languageKey)
+		        								<li class="list-group-item">
+		        									{{$languageKey->key_description}}<br>
+		        									{{substr($languageKey->language_audio, 13)}}<br>
+		        									<audio controls style="width: 100%; max-width: 100px;">
+												  		<source src="http://localhost/Universe360/{{$languageKey->language_audio}}" type="audio/ogg">
 													</audio>
-					        		 			</li>
-				        					@endforeach
+		        									
+		        								</li>
+		        							@endforeach
 		        						</ul>
 		        					</li>	          
 		        				</ul>
@@ -171,6 +170,39 @@
 	    		}
 	    	});
 	    }
+
+	    var btnLanguageAdd = document.getElementById("btnAddLanguage"); 
+		btnLanguageAdd.addEventListener("click", function() {
+			var checkboxes = document.getElementsByName('location[]');
+			//var vals = "";
+			var langIds=[];
+			for (var i=0, n=checkboxes.length;i<n;i++) 
+			{
+			    if (checkboxes[i].checked) 
+			    {
+			    	langIds.push(checkboxes[i].value);
+			        //vals += ","+checkboxes[i].value;
+			    }
+			}
+			//if (vals) vals = vals.substring(1);
+			var app_id = document.getElementById('app_id');
+			appId=app_id.value;
+			alert(appId+langIds.length);
+			setAppLanguages(appId,langIds);
+			
+		})
+		function setAppLanguages(appId,langIds){
+			alert("app:   "+langIds.length);
+	    	$.ajax({
+	    		url: "{!! url('new_app_language/store') !!}",
+	    		type: "POST",
+	    		data: {"app_id": appId,"langIds": langIds,"_token":"{{ csrf_token() }}"},
+	    		success:function(data){
+	    			console.log(data);
+	    		}
+	    	});
+	    }
+
 	</script>    
 </body>
 @endsection
