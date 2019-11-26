@@ -4,13 +4,16 @@ Route::get('application',function(){
 	return view('choose_application');
 });
  
-Route::get('/', 'LanguagesController@index')->middleware('auth');
+Route::get('/','AppController@index')->name('app')->middleware('auth');
+
+Route::get('/lang', 'LanguagesController@index')->middleware('auth')->name('lang');
 
 Route::get('/change_language','LanguagesController@changeLanguage')->middleware('auth');
 
 Auth::routes();
+Route::get('/app','AppController@index')->name('app');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/lang', 'LanguagesController@index')->middleware('auth')->name('lang');
+
 
 /*//Ajax for public access
 Route::post('set-lang-public-access','LanguagesController@setPublicAccess');
@@ -38,9 +41,9 @@ Route::get('key_delete/{id}','KeysController@delete');
 Route::post('description/update','LanguageKeysController@store');
 
 //test
-Route::get('app','AppController@index');
+
 Route::get('language','LanguageController@index');
-Route::get('app_language/{id}','AppLanguageController@index');
+Route::get('app_language/{id}','AppLanguageController@index')->middleware('auth');
 Route::get('app_language_key','AppLanguageKeyController@index');
 
 Route::post('new_app_language/store','AppLanguageKeyController@store');
