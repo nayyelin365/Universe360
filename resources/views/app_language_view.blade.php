@@ -151,7 +151,7 @@
 		function setLanguageStatus(id){
 			alert(id);
 	    	$.ajax({
-	    		url: "{!! url('aa') !!}",
+	    		url: "{!! url('set-lang-public-access') !!}",
 	    		type: "POST",
 	    		data: {"id": id,"_token":"{{ csrf_token() }}"},
 	    		success:function(data){
@@ -162,7 +162,7 @@
 	    //Change not public_access  to the language
 	    function unsetLanguageStatus(id){
 	    	$.ajax({
-	    		url: "{!! url('bb') !!}",
+	    		url: "{!! url('unset-lang-public-access') !!}",
 	    		type: "POST",
 	    		data: {"id": id,"_token":"{{ csrf_token() }}"},
 	    		success:function(data){

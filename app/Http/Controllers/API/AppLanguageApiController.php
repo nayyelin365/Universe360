@@ -4,47 +4,32 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Service\LanguageKeysService;
-use App\Service\LanguagesService;
-use App\Http\Resources\LanguageKeysResource;
-use App\Http\Resources\LanguagesResource;
+use App\Http\Resources\AppLanguageResource;
+use App\Model\AppModel;
+use App\Model\LanguageKeysModel;
 
-use App\Service\AppService;
-use App\Http\Resources\TestResource;
-
-
-class LanguagesApiController extends Controller
+class AppLanguageApiController extends Controller
 {
-    function __construct()
-    {
-        $this->LanguageKeysService = new LanguageKeysService();
-        $this->LanguagesService = new LanguagesService();
-
-        $this->AppService = new AppService();
-    }
-    public function app()
-    {
-        $data = $this->AppService->get_all();
-        return TestResource::collection($data);
-    }
-    public function languages()
-    {
-        $data = $this->LanguagesService->get_languages_according_to_public_access();
-        return LanguagesResource::collection($data);
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {   //get all languages
-        $data = $this->LanguageKeysService->get_all();
-        return LanguageKeysResource::collection($data);
+    public function index($id)
+    {
+        //App
+        $app = AppModel::where('app_name',$id)->get('id');
 
-        //get each language
-        /*$data = $this->LanguageKeysService->get_key_value_and_audio_of_language($request);
-        return LanguageKeysResource::collection($data);*/
+        //App
+        $app=AppModel::find($app[0]->id);
+        
+        //LanguageIdList
+        $languageIds = $app->app_language->where('public_access','Yes')->pluck('language_id');
+
+        //LanguageKeyList
+        $data = LanguageKeysModel::whereIn('language_id',$languageIds)->get();
+
+        return AppLanguageResource::collection($data);
     }
 
     /**

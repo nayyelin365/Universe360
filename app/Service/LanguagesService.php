@@ -47,5 +47,10 @@ use App\Model\LanguageKeysModel;
 		{
 		    LanguagesModel::where('id',$id)->update($arr);
 		}
+
+		public function get_app_language($id)
+		{
+			return LanguagesModel::all();
+		}
 	}
 ?>

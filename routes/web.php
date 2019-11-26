@@ -20,8 +20,8 @@ Route::post('set-lang-public-access','LanguagesController@setPublicAccess');
 Route::post('unset-lang-public-access','LanguagesController@unsetPublicAccess');*/
 
 //Ajax for public access
-Route::post('aa','AppLanguageController@setPublicAccess');
-Route::post('bb','AppLanguageController@unsetPublicAccess');
+Route::post('set-lang-public-access','AppLanguageController@setPublicAccess');
+Route::post('unset-lang-public-access','AppLanguageController@unsetPublicAccess');
 
 Route::get('app_language_delete/{id}','AppLanguageController@destroy');
 
