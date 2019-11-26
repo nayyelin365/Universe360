@@ -33,18 +33,14 @@ class AppLanguageController extends Controller
         $languageIds = $app->app_language->pluck('language_id');
 
         //LanguageKeyList
-        $languageKeyIds = LanguageKeysModel::whereIn('language_id',$languageIds)->pluck('id');
+        $keyIds = LanguageKeysModel::whereIn('language_id',$languageIds)->pluck('key_id');
+        
+        $uniqueKeyIds = $keyIds->unique();
 
-        //Remove duplicate key_id
-        $uniqueLanguageKeyIds = $languageKeyIds->unique();
+        $keys = KeysModel::whereIn('id',$uniqueKeyIds)->get();
 
-        //key_value_audio
-        $data["app_language_key_get_all"]=KeysModel::with('language_keys')->whereIn('id',$uniqueLanguageKeyIds)->get();
-
-        //$data["app_language_key_get_all"]= LanguageKeysModel::with('keys')->whereIn('language_id',$languageIds)->get();
-
-        //dd($data->keys->pluck('id'));
-
+        $data['keys'] = $keys;
+        $data['languageIds'] = $languageIds;
         $data["language_get_all"] = $this->LanguagesService->get_all();
         $data["app_language_get_all"] = $this->AppLanguageService->get_app_language($id);
         return view('app_language_view')->with($data);

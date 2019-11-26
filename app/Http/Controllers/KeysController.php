@@ -107,10 +107,10 @@ class KeysController extends Controller
     {
         $language_keys=$this->LanguageKeysService->get_key($id);
         foreach ($language_keys as $language_key) {
-            $audio_path=$language_key->language_audio;
-            if (file_exists($audio_path)) {
-               @unlink($audio_path);
-           }
+            $path=public_path().'\audio\\'.substr($language_key->language_audio, 13);
+            if (file_exists($path)) {
+               @unlink($path);
+            }
            $language_key->delete();
         }
         $key=$this->KeysService->get($id);

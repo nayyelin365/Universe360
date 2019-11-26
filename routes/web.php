@@ -43,6 +43,6 @@ Route::get('language','LanguageController@index');
 Route::get('app_language/{id}','AppLanguageController@index');
 Route::get('app_language_key','AppLanguageKeyController@index');
 
-Route::post('new_app_language/store','AppLanguageKeyController@store');
+Route::post('new_app_language/store','AppLanguageController@store');
 
 
