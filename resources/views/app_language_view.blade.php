@@ -1,7 +1,20 @@
 @extends('layouts.main')
 @include('layouts.app')
 @section('content')
- 	<div class="container h-100" style="margin-top: 30px;">
+
+	<div class="container h-100" style="margin-top: 30px;">
+
+		<a href="{{url('/lang')}}">
+			<div class="form-group">
+				<div class="ml-auto card " style="width: 200px;" >
+		 			<div class="card-body"> 
+		 				<h5><img src="{{url('images/setting.png')}}">Languages</h5> 
+		 			</div>
+		 			
+		 		</div>
+	 		</div>
+ 		</a>
+
 
 		<!-- for choose language -->
 		<div class="form-group">
