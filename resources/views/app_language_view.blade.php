@@ -217,13 +217,10 @@
 			//if (vals) vals = vals.substring(1);
 			var app_id = document.getElementById('app_id');
 			appId=app_id.value;
-			alert("app id"+appId+"size"+langIds.length);
-
 			setAppLanguages(appId,langIds);
 			
 		})
 		function setAppLanguages(appId,langIds){
-			alert("app:   "+langIds.length);
 	    	$.ajax({
 	    		url: "{!! url('new_app_language/store') !!}",
 	    		type: "POST",
