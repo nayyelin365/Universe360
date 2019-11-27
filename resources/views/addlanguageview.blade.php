@@ -1,5 +1,4 @@
-@extends('layouts.main')
-@include('layouts.app')
+@extends('layouts.app')
 @section('content')
  	<div class="container h-100" style="margin-top: 30px;">
 

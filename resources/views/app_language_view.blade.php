@@ -1,5 +1,4 @@
-@extends('layouts.main')
-@include('layouts.app')
+@extends('layouts.app')
 @section('content')
 
 	<div class="container h-100" style="margin-top: 30px;">
@@ -77,13 +76,45 @@
 				            	<label for="recipient-name" class="col-form-label">
 				            		Language:
 				            	</label>
-				            	<input type="hidden" name="app_id" id="app_id" value="{{$app_language_get_all[0]->app_id}}">
+
+				            	<input type="hidden" name="app_id" id="app_id" value="{{$app_id[0]}}">
+
+				            	<!-- @foreach($language_get_all as $lang)
+				            		<div class="form-check">
+											<input  type="checkbox" name="location[]" class="form-check-input" value="{{$lang->id}}" id="materialIndeterminate2">
+											<label class="form-check-label" for="materialIndeterminate3">{{$lang->language_name}}</label>
+										</div><br>
+				            	@endforeach -->
+
 				            	@foreach($language_get_all as $lang)
-				            	<!-- Material indeterminate -->
-									<div class="form-check">
-										<input type="checkbox" name="location[]" class="form-check-input" value="{{$lang->id}}" id="materialIndeterminate2">
-										<label class="form-check-label" for="materialIndeterminate2">{{$lang->language_name}}</label>
-									</div><br>
+ 									<?php $status = false;
+ 									 ?>
+ 									@foreach($app_language_get_all as $app) 
+
+
+ 										<?php  
+ 										 	if($lang->id == $app->language_id){
+ 										 		$status=true;
+ 										 		break;
+
+ 										 	}
+ 										 ?>
+									@endforeach
+
+									<?php if ($status==true){ ?>
+										<div class="form-check">
+												<input checked type="checkbox" name="location[]" class="form-check-input" value="{{$lang->id}}" id="materialIndeterminate2">
+												<label class="form-check-label" for="materialIndeterminate3">{{$lang->language_name}}</label>
+												</div><br>
+									<?php }else{ ?>
+
+												<div class="form-check">
+												<input type="checkbox" name="location[]" class="form-check-input" value="{{$lang->id}}" id="materialIndeterminate2">
+												<label class="form-check-label" for="materialIndeterminate3">{{$lang->language_name}}</label>
+												</div><br>
+									<?php } ?>
+
+
 				            	@endforeach
 			            	</div>
 			          	</form> 
@@ -187,7 +218,8 @@
 			//if (vals) vals = vals.substring(1);
 			var app_id = document.getElementById('app_id');
 			appId=app_id.value;
-			alert(appId+langIds.length);
+			alert("app id"+appId+"size"+langIds.length);
+
 			setAppLanguages(appId,langIds);
 			
 		})
