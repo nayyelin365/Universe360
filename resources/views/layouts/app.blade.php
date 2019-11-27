@@ -20,7 +20,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <script src="https://www.google.com/recaptcha/api.js?" async defer></script>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background: #1b774c;">
             <div class="container"> 
@@ -75,7 +74,6 @@
         </nav>
     </div>
     <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <main class="py-4">
         @yield('content')
     </main>
