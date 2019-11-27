@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Authoring Tools</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -25,7 +25,7 @@
             <div class="container"> 
                 <img src="{{url('images/logo1.png')}}" style="margin-right: 10px;" width="80px" height="40px;">
                 <a class="navbar-brand" href="{{ url('/') }}" style="color: white;">
-                    {{ config('app.name', 'Laravel') }}
+                    Authoring Tools
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
