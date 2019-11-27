@@ -40,6 +40,7 @@ class AppLanguageController extends Controller
         $keys = KeysModel::whereIn('id',$uniqueKeyIds)->get();
 
         $data['keys'] = $keys;
+        $data['app_id'] = $id;
         $data['languageIds'] = $languageIds;
         $data["language_get_all"] = $this->LanguagesService->get_all();
         $data["app_language_get_all"] = $this->AppLanguageService->get_app_language($id);

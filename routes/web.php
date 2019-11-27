@@ -49,3 +49,11 @@ Route::get('app_language_key','AppLanguageKeyController@index');
 Route::post('new_app_language/store','AppLanguageController@store');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

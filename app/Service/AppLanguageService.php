@@ -24,14 +24,22 @@ use App\Model\AppLanguageModel;
 		public function insert($request)
 	    {
 	    	$app_id=$request->app_id;
+	    	$app = AppModel::find($app_id);
 	    	$langIds=$request->langIds;
 
-	        foreach ($langIds as $key => $value) {
-	        	$app_language=new AppLanguageModel();
-	        	$app_language->app_id =$app_id; 
-	        	$app_language->language_id = $value;
-	        	$app_language->public_access = 'No';
-	        	$app_language->save();   
+	        foreach ($langIds as $value) {
+
+	        	$checkAppLang = $app->app_language()->where('language_id',$value)->first();
+
+	        	if(!$checkAppLang){
+
+	        		$app_language=new AppLanguageModel();
+	        		$app_language->app_id =$app_id; 
+	        		$app_language->language_id = $value;
+	        		$app_language->public_access = 'No';
+	        		$app_language->save();  
+
+	        	} 
 	        }
 	    }
 	}
