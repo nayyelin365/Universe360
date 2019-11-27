@@ -180,7 +180,6 @@
 	    });
 		//Change public_access  to the language
 		function setLanguageStatus(id){
-			alert(id);
 	    	$.ajax({
 	    		url: "{!! url('set-lang-public-access') !!}",
 	    		type: "POST",
